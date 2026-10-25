@@ -1,0 +1,8 @@
+{
+  "name": "Remix siasiailu-character-archive",
+  "description": "siasiailu ♡ Character Archive - Pink Pearl character storytelling universe with interactive AI roleplay, story generator, character portrait studio, search grounding, and music.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
