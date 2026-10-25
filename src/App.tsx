@@ -65,28 +65,43 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [showRules, setShowRules] = useState(false);
-  const [showCharacters, setShowCharacters] = useState(true);
-  const [activeTile, setActiveTile] = useState<"profile" | "rules" | "characters">("characters");
+  const [showCharacters, setShowCharacters] = useState(false);
+  const [activeTile, setActiveTile] = useState<"profile" | "rules" | "characters" | null>(null);
 
   const handleNavClick = (section: "profile" | "rules" | "characters") => {
     setActiveTile(section);
     playCuteChime("pop");
 
     if (section === "profile") {
-      setShowProfile(true);
-      setTimeout(() => {
-        document.getElementById("profile")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 60);
+      setShowProfile((prev) => {
+        const next = !prev;
+        if (next) {
+          setTimeout(() => {
+            document.getElementById("profile")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 60);
+        }
+        return next;
+      });
     } else if (section === "rules") {
-      setShowRules(true);
-      setTimeout(() => {
-        document.getElementById("rules")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 60);
+      setShowRules((prev) => {
+        const next = !prev;
+        if (next) {
+          setTimeout(() => {
+            document.getElementById("rules")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 60);
+        }
+        return next;
+      });
     } else if (section === "characters") {
-      setShowCharacters(true);
-      setTimeout(() => {
-        document.getElementById("archive")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 60);
+      setShowCharacters((prev) => {
+        const next = !prev;
+        if (next) {
+          setTimeout(() => {
+            document.getElementById("archive")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 60);
+        }
+        return next;
+      });
     }
   };
 
@@ -500,7 +515,7 @@ export default function App() {
                   data-bubble-close
                   onClick={() => {
                     setShowProfile(false);
-                    if (activeTile === "profile") setActiveTile("characters");
+                    if (activeTile === "profile") setActiveTile(null);
                   }}
                   className="text-[11px] text-[#a48a88] hover:text-[#c97894] flex items-center gap-1 transition-colors px-2 py-1 cursor-pointer"
                   title="Close profile section"
@@ -557,7 +572,7 @@ export default function App() {
                   data-bubble-close
                   onClick={() => {
                     setShowRules(false);
-                    if (activeTile === "rules") setActiveTile("characters");
+                    if (activeTile === "rules") setActiveTile(null);
                   }}
                   className="text-[11px] text-[#a48a88] hover:text-[#c97894] flex items-center gap-1 transition-colors px-2 py-1 cursor-pointer"
                   title="Close rules section"
@@ -605,6 +620,7 @@ export default function App() {
                   data-bubble-close
                   onClick={() => {
                     setShowCharacters(false);
+                    if (activeTile === "characters") setActiveTile(null);
                   }}
                   className="text-[11px] text-[#a48a88] hover:text-[#c97894] flex items-center gap-1 transition-colors px-2 py-1 cursor-pointer"
                   title="Close character section"
